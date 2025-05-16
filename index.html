@@ -148,6 +148,15 @@
           ratingLabelElement.innerText = 'Select a rating'; // Default text
         }
       }
+
+      // Optional: Add input event listener for phone number for more dynamic feedback (not strictly necessary with pattern and maxlength)
+      const phoneInput = document.getElementById('phone');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+          // You could add JavaScript to reformat or provide instant feedback here if desired
+          // For now, relying on HTML5 validation (pattern, maxlength)
+        });
+      }
     });
   </script>
 </head>
@@ -163,7 +172,16 @@
     <input type="email" id="email" name="email" required>
 
     <label for="phone">Phone Number<span class="required-asterisk">*</span></label>
-    <input type="tel" id="phone" name="phone" placeholder="e.g., (123) 456-7890" required>
+    <input 
+      type="tel" 
+      id="phone" 
+      name="phone" 
+      placeholder="e.g., 1234567890" 
+      required 
+      maxlength="10" 
+      pattern="[0-9]{10}" 
+      title="Please enter a 10-digit phone number (digits only)."
+    >
 
     <label>Rating</label>
     <div class="stars">
