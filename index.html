@@ -14,10 +14,10 @@
       align-items: center;
       justify-content: center;
       padding: 3rem;
-      margin: 0; /* Added to ensure full coverage */
+      margin: 0;
     }
     img.logo {
-      width: 180px;
+      width: 180px; /* You can adjust this as needed */
       margin-bottom: 1rem;
     }
     form {
@@ -27,7 +27,7 @@
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
       max-width: 600px;
       width: 100%;
-      box-sizing: border-box; /* Added for better padding control */
+      box-sizing: border-box;
     }
     h1 {
       color: gold;
@@ -43,7 +43,7 @@
     }
     input[type="text"],
     input[type="email"],
-    input[type="tel"], /* Added style for tel input */
+    input[type="tel"],
     textarea {
       width: 100%;
       padding: 0.8rem;
@@ -51,33 +51,35 @@
       border: 1px solid gold;
       border-radius: 5px;
       background-color: #222;
-      color: white; /* Changed from gold to white for user input text */
+      color: white; /* User input text color */
       font-size: 1rem;
-      box-sizing: border-box; /* Added for consistent sizing */
+      box-sizing: border-box;
     }
     .stars {
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row-reverse; /* For LTR star selection */
       gap: 0.5rem;
       justify-content: center;
       margin-top: 0.8rem;
       position: relative;
     }
     .stars input[type="radio"] {
-      display: none;
+      display: none; /* Hide the actual radio buttons */
     }
-    .stars label {
+    .stars label { /* Style for the star characters */
       font-size: 2.8rem;
-      color: #555;
+      color: #555; /* Default color for unselected stars */
       cursor: pointer;
       transition: transform 0.2s, color 0.2s;
-      margin-top: 0;
+      margin-top: 0; /* Override general label margin */
     }
+    /* Hover effect: Lights up the hovered star and all stars to its left (visually) */
     .stars label:hover,
     .stars label:hover ~ label {
       color: gold;
       transform: scale(1.2);
     }
+    /* Checked state: Keeps the selected star and all stars to its left (visually) lit */
     .stars input[type="radio"]:checked + label,
     .stars input[type="radio"]:checked + label ~ label {
       color: gold;
@@ -94,9 +96,9 @@
       width: fit-content;
       margin-left: auto;
       margin-right: auto;
-      min-height: 1.5em; /* Ensure space for text */
+      min-height: 1.5em; /* Ensure space for text, prevents layout jump */
     }
-    button {
+    button[type="submit"] {
       margin-top: 2rem;
       background-color: gold;
       color: black;
@@ -108,22 +110,25 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    button:hover {
+    button[type="submit"]:hover {
       background-color: black;
       color: gold;
       border: 1px solid gold;
+    }
+    .required-asterisk {
+      color: red;
+      margin-left: 0.25rem;
     }
   </style>
   <script>
     // This function updates the text label for the star rating
     function showRatingLabel(value) {
-      // Updated labels as per your request
       const labels = [
-        'Bad',                 // 1 star
-        'Fair',                // 2 stars (placeholder, you can change this)
-        'Good but can be better', // 3 stars
-        'Very Good',           // 4 stars (placeholder, you can change this)
-        'Excellent'            // 5 stars
+        'Bad',                     // 1 star
+        'Fair',                    // 2 stars
+        'Good but can be better',  // 3 stars
+        'Very Good',               // 4 stars
+        'Excellent'                // 5 stars
       ];
       const ratingLabelElement = document.getElementById('ratingLabel');
       if (ratingLabelElement) {
@@ -149,19 +154,20 @@
 <body>
   <img src="Picsart_25-04-16_17-05-13-213.png" alt="Tikka Masala Logo" class="logo">
   <h1>Feedback Form</h1>
-  <form action="/submit" method="POST">
-    <label for="name">Name</label>
+
+  <form name="feedback" method="POST" netlify>
+    <label for="name">Name<span class="required-asterisk">*</span></label>
     <input type="text" id="name" name="name" required>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <label for="email">Email<span class="required-asterisk">*</span></label>
+    <input type="email" id="email" name="email" required>
 
-    <label for="phone">Phone Number</label>
+    <label for="phone">Phone Number<span class="required-asterisk">*</span></label>
     <input type="tel" id="phone" name="phone" placeholder="e.g., (123) 456-7890" required>
 
     <label>Rating</label>
     <div class="stars">
-      <input type="radio" id="star5" name="rating" value="5" onclick="showRatingLabel(5)"><label for="star5">★</label>
+      <input type="radio" id="star5" name="rating" value="5" onclick="showRatingLabel(5)" required><label for="star5">★</label>
       <input type="radio" id="star4" name="rating" value="4" onclick="showRatingLabel(4)"><label for="star4">★</label>
       <input type="radio" id="star3" name="rating" value="3" onclick="showRatingLabel(3)"><label for="star3">★</label>
       <input type="radio" id="star2" name="rating" value="2" onclick="showRatingLabel(2)"><label for="star2">★</label>
@@ -169,7 +175,7 @@
     </div>
     <div class="tooltip" id="ratingLabel">Select a rating</div>
 
-    <label for="feedback">Your Feedback</label>
+    <label for="feedback">Your Feedback<span class="required-asterisk">*</span></label>
     <textarea id="feedback" name="feedback" rows="5" required></textarea>
 
     <button type="submit">Send Feedback</button>
